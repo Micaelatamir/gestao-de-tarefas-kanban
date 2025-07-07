@@ -53,3 +53,14 @@ Este projeto foi desenvolvido por mim, Micaela, com o objetivo de praticar e evo
 
 ## 🧱 Estrutura do Projeto
 
+src/
+├── main/
+│ ├── java/com/micaela/kanban/
+│ │ ├── controller/ # Onde ficam os endpoints REST
+│ │ ├── model/ # Representação das entidades do sistema
+│ │ ├── repository/ # Acesso ao banco de dados com JPA
+│ │ └── KanbanApplication # Classe principal que inicia o projeto
+│
+└── resources/
+└── application.properties # Configurações da aplicação
+
