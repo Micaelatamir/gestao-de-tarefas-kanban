@@ -22,7 +22,8 @@ public class TarefaController {
 
     @PostMapping
     public Tarefa criar(@RequestBody Tarefa tarefa){
-        retur
+       return repo.save(tarefa);
+
     }
     
 
