@@ -19,6 +19,7 @@ public class TarefaController {
 
     @PostMapping
     public Tarefa criar(@RequestBody Tarefa tarefa) {
+        tarefa.setStatus("Pendente"); // Começa sempre como pendente
         return repo.save(tarefa);
     }
 
@@ -30,23 +31,21 @@ public class TarefaController {
     @GetMapping("/{id}")
     public ResponseEntity<Tarefa> buscarPorId(@PathVariable Long id) {
         Optional<Tarefa> tarefa = repo.findById(id);
+        return tarefa.map(ResponseEntity::ok)
+                     .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
     @PutMapping("/{id}/concluir")
-     public ResponseEntity<Tarefa> concluirTarefa(@PathVariable Long id) {
-     Optional<Tarefa> tarefaOptional = repo.findById(id);
+    public ResponseEntity<Tarefa> concluirTarefa(@PathVariable Long id) {
+        Optional<Tarefa> tarefaOptional = repo.findById(id);
 
-     if (tarefaOptional.isPresent()) {
-        Tarefa tarefa = tarefaOptional.get();
-        tarefa.setStatus("Concluída");
-        repo.save(tarefa);
-        return ResponseEntity.ok(tarefa);
-    } else {
-        return ResponseEntity.notFound().build();
-
-    
+        if (tarefaOptional.isPresent()) {
+            Tarefa tarefa = tarefaOptional.get();
+            tarefa.setStatus("Concluída");
+            repo.save(tarefa);
+            return ResponseEntity.ok(tarefa);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-}
-
-    }
-
 }
