@@ -36,5 +36,15 @@ public class TarefaController {
         } else {
             return ResponseEntity.notFound().build();
         }
+
+    @PutMapping("/{id}/concluir")
+     public ResponseEntity<Tarefa> concluirTarefa(@PathVariable Long id) {
+     Optional<Tarefa> tarefaOptional = repo.findById(id);
+
+    
     }
+}
+
+    }
+
 }
