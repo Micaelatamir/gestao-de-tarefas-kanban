@@ -3,6 +3,9 @@ package com.micaela.kanban.controller;
 import com.micaela.kanban.model.Tarefa;
 import com.micaela.kanban.repository.TarefaRepository;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import java.util.Optional;
+
 
 import java.util.List;
 
@@ -25,4 +28,15 @@ public class TarefaController {
     public List<Tarefa> listarTodas() {
         return repo.findAll();
     }
+    @GetMapping("/{id}")
+     public ResponseEntity<Tarefa> buscarPorId(@PathVariable Long id) {
+    Optional<Tarefa> tarefa = repo.findById(id);
+
+    if (tarefa.isPresent()) {
+        return ResponseEntity.ok(tarefa.get());
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+}
+
 }
