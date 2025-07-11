@@ -31,15 +31,17 @@ public class TarefaController {
     public ResponseEntity<Tarefa> buscarPorId(@PathVariable Long id) {
         Optional<Tarefa> tarefa = repo.findById(id);
 
-        if (tarefa.isPresent()) {
-            return ResponseEntity.ok(tarefa.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-
     @PutMapping("/{id}/concluir")
      public ResponseEntity<Tarefa> concluirTarefa(@PathVariable Long id) {
      Optional<Tarefa> tarefaOptional = repo.findById(id);
+
+     if (tarefaOptional.isPresent()) {
+        Tarefa tarefa = tarefaOptional.get();
+        tarefa.setStatus("Concluída");
+        repo.save(tarefa);
+        return ResponseEntity.ok(tarefa);
+    } else {
+        return ResponseEntity.notFound().build();
 
     
     }
